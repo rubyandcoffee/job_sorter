@@ -1,4 +1,3 @@
-require "job_sorter/version"
 require "tsort"
 class JobSorter
 	include TSort
