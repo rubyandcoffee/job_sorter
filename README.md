@@ -35,10 +35,13 @@ Imagine we have a list of jobs, each represented by a character. Because certain
 * Given you're passed an empty string (no jobs), the result should be an empty sequence.
 
 * Given the following job structure:
+
 `a => `
+
 The result should be a sequence consisting of a single job a.
 
 * Given the following job structure:
+
 `a =>
 b =>
 c =>`
@@ -46,6 +49,7 @@ c =>`
 The result should be a sequence containing all three jobs abc in no significant order.
 
 * Given the following job structure:
+
 `a =>
 b => c
 c =>`
@@ -53,6 +57,7 @@ c =>`
 The result should be a sequence that positions c before b, containing all three jobs abc.
 
 * Given the following job structure:
+
 `a =>
 b => c
 c => f
@@ -63,6 +68,7 @@ f =>`
 The result should be a sequence that positions f before c, c before b, b before e and a before d containing all six jobs abcdef.
 
 * Given the following job structure:
+
 `a =>
 b =>
 c => c`
@@ -70,6 +76,7 @@ c => c`
 The result should be an error stating that jobs can't depend on themselves.
 
 * Given the following job structure:
+
 `a =>
 b => c
 c => f
