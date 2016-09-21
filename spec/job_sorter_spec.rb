@@ -36,7 +36,7 @@ describe JobSorter do
 			end
 
 			it "returns 'a b c'" do
-				expect([job_sorter.order_jobs(job_string)]).to eq('a b c')
+				expect(job_sorter.order_jobs(job_string)).to eq('a b c')
 			end
 		end
 

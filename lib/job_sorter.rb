@@ -3,6 +3,10 @@ require "tsort"
 class JobSorter
 	include TSort
 
+	def self_dependency_error(k)
+		raise "Job cannot have self-dependency."
+	end
+
 	def initialize
 		@dependencies = Hash.new{|j,d| j[d] = []}
 	end
@@ -23,7 +27,13 @@ class JobSorter
 		s_jobs = unsorted_jobs.split(", ")
 		s_jobs.each do |s|
 			k, v = s.split(" => ")
-			@m = add_job_dependency(k,v)
+			if k === v
+				raise self_dependency_error(k)
+			elsif v === nil
+				@m = add_job_dependency(k)
+			else
+				@m = add_job_dependency(k,v)
+			end
 		end
 	end
 
