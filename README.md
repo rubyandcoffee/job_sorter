@@ -21,6 +21,9 @@ Or install it yourself as:
 job_sorter takes in a single string of jobs and their dependencies, e.g. "a => , b => c, c => " and then sorts them using TSort, returning the result as a string.
 More information to follow soon.
 
+## Please note
+This gem is currently under construction. Check back soon for updates.
+
 
 ## Contributing
 

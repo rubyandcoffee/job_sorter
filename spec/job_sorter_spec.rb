@@ -1,11 +1,52 @@
 require "spec_helper"
 
 describe JobSorter do
-  it "has a version number" do
-    expect(JobSorter::VERSION).not_to be nil
-  end
+	describe '.order_jobs' do
+		let(:job_sorter) { JobSorter.new }
 
-  it "does something useful" do
-    expect(false).to eq(true)
-  end
+		context "given 'a => '" do
+			let(:job_string) { "a" }
+
+			it "is a string" do
+				expect(job_string).to be_a(String)
+			end
+		end
+
+		context "given 'a => , b => , c => '" do
+			let(:job_string) { "a => , b => , c => " }
+
+			it "is a string" do
+				expect(job_string).to be_a(String)
+			end
+		end
+
+		context "given 'a => , b => c, c => '" do
+			let(:job_string) { "a => , b => c, c => " }
+
+			it "is a string" do
+				expect(job_string).to be_a(String)
+			end
+		end
+
+		context "given 'a => , b => c, c => f, d => a, e => b, f => '" do
+			let(:job_string) { "a => , b => c, c => f, d => a, e => b, f => " }
+			it "is a string" do
+				expect(job_string).to be_a(String)
+			end
+		end
+
+		context "given 'a => , b => , c => c'" do
+			let(:job_string) { "a => , b => , c => c" }
+			it "is a string" do
+				expect(job_string).to be_a(String)
+			end
+		end
+
+		context "given 'a => , b => c, c => f, d => a, e => , f => b" do
+			let(:job_string) { "a => , b => c, c => f, d => a, e => , f => b" }
+			it "is a string" do
+				expect(job_string).to be_a(String)
+			end
+		end
+	end
 end
