@@ -16,7 +16,7 @@ class JobSorter
 
 	def tsort_each_node(&block)
   	@dependencies.each_key(&block)
-  end
+  	end
 
   def tsort_each_child(job, &block)
   	@dependencies[job].each(&block) if @dependencies.has_key?(job)
@@ -36,9 +36,9 @@ class JobSorter
 		end
 	end
 
-  def order_jobs(job_string)
-  	job_sorter = JobSorter.new
-  	job_sorter.split_jobs(job_string)
-  	job_sorter.tsort.join(" ")
-  end
+	def order_jobs(job_string)
+		job_sorter = JobSorter.new
+		job_sorter.split_jobs(job_string)
+		job_sorter.tsort.join(" ")
+	end
 end
