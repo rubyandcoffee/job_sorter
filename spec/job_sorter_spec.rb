@@ -92,7 +92,8 @@ describe JobSorter do
       end
 
       it "raises error: job cannot have self-dependency" do
-        expect{job_sorter.order_jobs(job_string)}.to raise_error(RuntimeError, 'Job cannot have self-dependency.')
+        expect{job_sorter.order_jobs(job_string)}.
+          to raise_error(RuntimeError, 'Job cannot have self-dependency.')
       end
     end
 
