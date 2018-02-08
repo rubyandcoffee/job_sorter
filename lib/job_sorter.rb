@@ -1,9 +1,10 @@
-require "tsort"
+require 'tsort'
+
 class JobSorter
   include TSort
 
   def self_dependency_error(k)
-    raise "Job cannot have self-dependency."
+    raise 'Job cannot have self-dependency.'
   end
 
   def initialize
@@ -23,15 +24,15 @@ class JobSorter
   end
 
   def split_jobs(unsorted_jobs)
-    s_jobs = unsorted_jobs.split(", ")
+    s_jobs = unsorted_jobs.split(', ')
     s_jobs.each do |s|
-      k, v = s.split(" => ")
+      k, v = s.split(' => ')
       if k === v
         raise self_dependency_error(k)
       elsif v === nil
         @m = add_job_dependency(k)
       else
-        @m = add_job_dependency(k,v)
+        @m = add_job_dependency(k, v)
       end
     end
   end
@@ -39,6 +40,6 @@ class JobSorter
   def order_jobs(job_string)
     job_sorter = JobSorter.new
     job_sorter.split_jobs(job_string)
-    job_sorter.tsort.join(" ")
+    job_sorter.tsort.join(' ')
   end
 end
