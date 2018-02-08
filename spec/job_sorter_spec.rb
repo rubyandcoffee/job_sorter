@@ -6,6 +6,7 @@ describe JobSorter do
 
     context "given an empty String (no jobs)" do
       let(:job_string) { " " }
+
       it "is of type String" do
         expect(job_string).to be_a(String)
       end
@@ -13,7 +14,6 @@ describe JobSorter do
       it "returns an empty String" do
         expect(job_sorter.order_jobs(job_string)).to eql(' ')
       end
-
     end
 
     context "given 'a => '" do

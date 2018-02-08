@@ -3,16 +3,43 @@ require 'tsort'
 class JobSorter
   include TSort
 
-  def self_dependency_error(k)
-    raise 'Job cannot have self-dependency.'
+  def initialize
+    @dependencies = dependencies
   end
 
-  def initialize
-    @dependencies = Hash.new{ |j,d| j[d] = [] }
+  def self.order_jobs(job_string)
+    job_sorter = JobSorter.new
+    job_sorter.split_and_add_jobs(job_string)
+
+    join_jobs(job_sorter)
+  end
+
+  def split_and_add_jobs(unsorted_jobs)
+    split_jobs(unsorted_jobs).map { |job| add_jobs(job) }
+  end
+
+  private
+
+  def add_jobs(new_job)
+    key, value = new_job.split(' => ')
+
+    key === value ? self_dependency_error(key) : add_job_dependency(key, value)
+  end
+
+  def self_dependency_error(key)
+    raise 'Job cannot have self-dependency.'
   end
 
   def add_job_dependency(job, *job_dependencies)
     @dependencies[job] = job_dependencies
+  end
+
+  def split_jobs(unsorted_jobs)
+    unsorted_jobs.split(', ')
+  end
+
+  def self.join_jobs(job_sorter)
+    job_sorter.tsort.join(' ')
   end
 
   def tsort_each_node(&block)
@@ -23,23 +50,7 @@ class JobSorter
     @dependencies[job].each(&block) if @dependencies.has_key?(job)
   end
 
-  def split_jobs(unsorted_jobs)
-    s_jobs = unsorted_jobs.split(', ')
-    s_jobs.each do |s|
-      k, v = s.split(' => ')
-      if k === v
-        raise self_dependency_error(k)
-      elsif v === nil
-        @m = add_job_dependency(k)
-      else
-        @m = add_job_dependency(k, v)
-      end
-    end
-  end
-
-  def order_jobs(job_string)
-    job_sorter = JobSorter.new
-    job_sorter.split_jobs(job_string)
-    job_sorter.tsort.join(' ')
+  def dependencies
+    Hash.new{ |job, dependency| job[dependency] = [] }
   end
 end
